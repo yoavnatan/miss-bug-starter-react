@@ -12,6 +12,7 @@
   "type": "module",
   "dependencies": {
     "cookie-parser": "^1.4.7",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "follow-redirects": "^1.15.11"
   }
 }
