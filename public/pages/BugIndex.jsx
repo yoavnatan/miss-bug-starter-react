@@ -61,17 +61,28 @@ export function BugIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
 
+    function onAddDescription(bug) {
+        const description = prompt('Describe the bug')
+        bug.description = description
+        console.log(bug)
+        bugService.save(bug)
+            .then(showSuccessMsg('Description added'))
+            .catch(err => showErrorMsg('Cannot add description', err))
+
+    }
+
     return <section className="bug-index main-content">
-        
+
         <BugFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
         <header>
             <h3>Bug List</h3>
             <button onClick={onAddBug}>Add Bug</button>
         </header>
-        
-        <BugList 
-            bugs={bugs} 
-            onRemoveBug={onRemoveBug} 
+
+        <BugList
+            bugs={bugs}
+            onAddDescription={onAddDescription}
+            onRemoveBug={onRemoveBug}
             onEditBug={onEditBug} />
     </section>
 }

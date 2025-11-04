@@ -35,6 +35,7 @@ function save(bug) {
         bugs[idx] = bug
     } else {
         bug._id = makeId()
+        bug.createdAt = Date.now()
         bugs.push(bug)
     }
     return _savebugs()
