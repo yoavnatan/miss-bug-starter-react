@@ -1,6 +1,6 @@
 const { useState, useEffect } = React
 
-import { bugService } from '../services/bug.service.local.js'
+import { bugService } from '../services/bug.service.remote.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 
 import { BugFilter } from '../cmps/BugFilter.jsx'
@@ -31,7 +31,8 @@ export function BugIndex() {
     function onAddBug() {
         const bug = {
             title: prompt('Bug title?', 'Bug ' + Date.now()),
-            severity: +prompt('Bug severity?', 3)
+            severity: +prompt('Bug severity?', 3),
+            description: prompt('Describe the bug')
         }
 
         bugService.save(bug)
@@ -44,7 +45,8 @@ export function BugIndex() {
 
     function onEditBug(bug) {
         const severity = +prompt('New severity?', bug.severity)
-        const bugToSave = { ...bug, severity }
+        const description = prompt('New Description?', bug.description)
+        const bugToSave = { ...bug, severity, description }
 
         bugService.save(bugToSave)
             .then(savedBug => {
@@ -61,16 +63,6 @@ export function BugIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
 
-    function onAddDescription(bug) {
-        const description = prompt('Describe the bug')
-        bug.description = description
-        console.log(bug)
-        bugService.save(bug)
-            .then(showSuccessMsg('Description added'))
-            .catch(err => showErrorMsg('Cannot add description', err))
-
-    }
-
     return <section className="bug-index main-content">
 
         <BugFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
@@ -81,7 +73,6 @@ export function BugIndex() {
 
         <BugList
             bugs={bugs}
-            onAddDescription={onAddDescription}
             onRemoveBug={onRemoveBug}
             onEditBug={onEditBug} />
     </section>

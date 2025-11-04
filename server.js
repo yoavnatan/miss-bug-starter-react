@@ -1,14 +1,21 @@
 import express from 'express'
+
 import { bugService } from './services/bug.service.js'
 import { loggerService } from './services/logger.service.js'
 
 const app = express()
-app.get('/', (req, res) => res.send('Hello there'))
-app.listen(3030, () => console.log('Server ready at port 3030'))
+app.use(express.static('public'))
 
-app.get('api/bug/save', (req, res) => {
+
+app.get('/api/bug', (req, res) => {
+    bugService.query()
+        .then(bugs => res.send(bugs))
+})
+
+app.get('/api/bug/save', (req, res) => {
     const { id: _id, title, description, severity } = req.query
     const bug = { _id, title, description, severity }
+    // console.log(bug)
 
     bugService.save(bug)
         .then(bug => res.send(bug))
@@ -18,12 +25,9 @@ app.get('api/bug/save', (req, res) => {
         })
 })
 
-app.get('/api/bug', (req, res) => {
-    bugService.query()
-        .then(bugs => res.send(bugs))
-})
 
 app.get('/api/bug/:id', (req, res) => {
+    console.log('hi')
     const bugId = req.params.id
     console.log(bugId)
     bugService.getById(bugId)
@@ -43,4 +47,9 @@ app.get('/api/bug/:id/remove', (req, res) => {
             loggerService.error(err)
             res.status(404).send(err)
         })
+})
+
+const port = 3030
+app.listen(port, () => {
+    loggerService.info(`Server listening on port http://127.0.0.1:${port}/`)
 })

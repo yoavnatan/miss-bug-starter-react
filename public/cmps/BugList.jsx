@@ -2,8 +2,8 @@ const { Link } = ReactRouterDOM
 
 import { BugPreview } from './BugPreview.jsx'
 
-export function BugList({ bugs, onRemoveBug, onEditBug, onAddDescription }) {
-
+export function BugList({ bugs, onRemoveBug, onEditBug }) {
+    console.log(bugs)
     if (!bugs) return <div>Loading...</div>
     return <ul className="bug-list">
         {bugs.map(bug => (
@@ -12,7 +12,6 @@ export function BugList({ bugs, onRemoveBug, onEditBug, onAddDescription }) {
                 <section className="actions">
                     <button><Link to={`/bug/${bug._id}`}>Details</Link></button>
                     <button onClick={() => onEditBug(bug)}>Edit</button>
-                    <button onClick={() => onAddDescription(bug)}>Add description</button>
                     <button onClick={() => onRemoveBug(bug._id)}>x</button>
                 </section>
             </li>
