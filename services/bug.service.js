@@ -32,7 +32,7 @@ function save(bug) {
     if (bug._id) {
         const idx = bugs.findIndex(b => b._id === bug._id)
         if (idx === -1) return Promise.reject('bug not found')
-        bugs[idx] = bug
+        bugs[idx] = { ...bug[idx], ...bug } //patch --- because there is no createdAt at the saved bug that came from the front
     } else {
         bug._id = makeId()
         bug.createdAt = Date.now()

@@ -13,8 +13,8 @@ app.get('/api/bug', (req, res) => {
 })
 
 app.get('/api/bug/save', (req, res) => {
-    const { id: _id, title, description, severity } = req.query
-    const bug = { _id, title, description, severity }
+    const { id: _id, title, description, severity } = req.query //no createdAt here, came from the front
+    const bug = { _id, title, description, severity: +severity }
     // console.log(bug)
 
     bugService.save(bug)

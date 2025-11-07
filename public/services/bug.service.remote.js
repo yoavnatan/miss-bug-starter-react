@@ -40,10 +40,12 @@ function remove(bugId) {
 
 function save(bug) {
 
-    console.log(bug)
-
     const quertStr = '/save?' +
-        `severity=${bug.severity}`
+        `_id=${bug._id || ''}&` +
+        `title=${bug.ditle}&` +
+        `severity=${bug.severity}&` +
+        `description=${bug.description || ''}`
+
     return axios.get(BASE_URL + quertStr)
         .then(res => res.data)
 }
