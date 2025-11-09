@@ -1,5 +1,6 @@
 import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
+import { showErrorMsg } from './event-bus.service.js'
 
 const BASE_URL = '/api/bug'
 
@@ -32,6 +33,8 @@ function query(filterBy) {
 function getById(bugId) {
     return axios.get(BASE_URL + '/' + bugId)
         .then(res => res.data)
+        .catch(err => showErrorMsg(`${err.response.data}`, err))
+
 }
 
 function remove(bugId) {
