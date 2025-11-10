@@ -1,5 +1,4 @@
 import { utilService } from './util.service.js'
-import { storageService } from './async-storage.service.js'
 import { showErrorMsg } from './event-bus.service.js'
 import { download } from '../../services/util.service.js'
 
@@ -17,7 +16,8 @@ export const bugService = {
     downloadPDF
 }
 
-function query(filterBy) {
+function query(filterBy = {}) {
+    console.log(filterBy)
     return axios.get(BASE_URL, { params: filterBy })
         .then(res => res.data)
 
@@ -46,9 +46,8 @@ function save(bug) {
 }
 
 
-
 function getDefaultFilter() {
-    return { txt: '', minSeverity: 0 }
+    return { txt: '', minSeverity: '', pageIdx: 0, paginationOn: true, pageSize: 3 }
 }
 
 function downloadPDF() {

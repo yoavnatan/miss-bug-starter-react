@@ -13,7 +13,6 @@ export function BugIndex() {
     const debouncedOnSetFilterBy =
         useRef(debounce(onSetFilterBy, 500)).current
 
-
     useEffect(loadBugs, [filterBy])
 
     function loadBugs() {
@@ -70,7 +69,7 @@ export function BugIndex() {
 
     return <section className="bug-index main-content">
 
-        <BugFilter filterBy={filterBy} onSetFilterBy={debouncedOnSetFilterBy} />
+        <BugFilter bugs={bugs} filterBy={filterBy} onSetFilterBy={debouncedOnSetFilterBy} />
         <header>
             <h3>Bug List</h3>
             < BugSort filterBy={filterBy} onSetFilterBy={onSetFilterBy} />

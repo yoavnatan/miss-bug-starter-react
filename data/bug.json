@@ -30,5 +30,15 @@
     "labales": [
       "critical"
     ]
+  },
+  {
+    "title": "Bug 1762801788209",
+    "description": "",
+    "severity": 3,
+    "_id": "GwVg5",
+    "createdAt": 1762801791895,
+    "labales": [
+      "critical"
+    ]
   }
 ]
