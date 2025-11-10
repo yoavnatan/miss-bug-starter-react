@@ -1,10 +1,13 @@
 import { makeId, readJsonFile, writeJsonFile } from './util.service.js'
+import fs from 'fs'
+import PDFDocument from 'pdfkit-table'
+
 
 export const bugService = {
     query,
     getById,
     remove,
-    save,
+    save
 }
 
 const bugs = readJsonFile('./data/bug.json')
@@ -36,6 +39,7 @@ function save(bug) {
     } else {
         bug._id = makeId()
         bug.createdAt = Date.now()
+        bug.labales = ['critical']
         bugs.push(bug)
     }
     return _savebugs()
@@ -45,3 +49,4 @@ function save(bug) {
 function _savebugs() {
     return writeJsonFile('./data/bug.json', bugs)
 }
+

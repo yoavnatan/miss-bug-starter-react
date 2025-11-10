@@ -3,9 +3,9 @@ const { useState, useEffect, useRef } = React
 import { bugService } from '../services/bug.service.remote.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { debounce } from '../services/util.service.js'
-
 import { BugFilter } from '../cmps/BugFilter.jsx'
 import { BugList } from '../cmps/BugList.jsx'
+import { BugSort } from "../cmps/BugSort.jsx"
 
 export function BugIndex() {
     const [bugs, setBugs] = useState(null)
@@ -67,12 +67,15 @@ export function BugIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
 
+
     return <section className="bug-index main-content">
 
         <BugFilter filterBy={filterBy} onSetFilterBy={debouncedOnSetFilterBy} />
         <header>
             <h3>Bug List</h3>
+            < BugSort filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
             <button onClick={onAddBug}>Add Bug</button>
+
         </header>
 
         <BugList

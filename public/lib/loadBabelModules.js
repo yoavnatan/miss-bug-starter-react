@@ -30,7 +30,7 @@
     // Should be a host + root + path
     var fileRequest = new XMLHttpRequest();
     fileRequest.open("GET", fileUrl, false);
-    fileRequest.onreadystatechange = function() {
+    fileRequest.onreadystatechange = function () {
       if (fileRequest.readyState === 4) {
         var fileText = fileRequest.responseText;
 
