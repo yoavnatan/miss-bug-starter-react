@@ -66,6 +66,10 @@ export function BugIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
 
+    function onDownloadPDF() {
+        bugService.downloadPDF(bugs)
+    }
+
 
     return <section className="bug-index main-content">
 
@@ -75,6 +79,8 @@ export function BugIndex() {
             <button onClick={onAddBug}>Add Bug</button>
 
         </header>
+
+        <button onClick={onDownloadPDF}>download PDF</button>
 
         <BugList
             bugs={bugs}

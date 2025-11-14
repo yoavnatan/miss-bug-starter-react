@@ -1,10 +1,15 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import path from 'path'
+import PDFDocument from 'pdfkit'
+
 
 
 import { bugService } from './services/bug.service.js'
 import { loggerService } from './services/logger.service.js'
+import { pdfService } from './services/pdf.service.js'
+
+
 
 const app = express()
 app.use(express.static('public'))
@@ -111,6 +116,28 @@ app.delete('/api/bug/:id', (req, res) => {
 app.get('/*all', (req, res) => {
     res.sendFile(path.resolve('public/index.html'))
 })
+
+app.post('/api/bug/pdf', (req, res) => {
+    const bugs = req.body
+    const doc = new PDFDocument()
+
+    // שליחה ישירות ללקוח
+    res.setHeader('Content-Type', 'application/pdf')
+
+    doc.pipe(res)
+
+    bugs.forEach(bug => {
+        doc.text(`Bug ID: ${bug._id}`)
+        doc.text(`Title: ${bug.title}`)
+        doc.text(`Description: ${bug.description}`)
+        doc.text(`Severity: ${bug.severity}`)
+        doc.addPage()
+    })
+
+    doc.end()
+})
+
+
 
 const port = 3030
 app.listen(port, () => {

@@ -1,6 +1,7 @@
 import { utilService } from './util.service.js'
 import { showErrorMsg } from './event-bus.service.js'
-import { download } from '../../services/util.service.js'
+// import { download } from '../../services/util.service.js'
+import { pdfService } from '../../services/pdf.service.js'
 
 import fs from 'fs'
 import PDFDocument from 'pdfkit-table'
@@ -50,9 +51,15 @@ function getDefaultFilter() {
     return { txt: '', minSeverity: '', pageIdx: 0, paginationOn: true, pageSize: 3, labels: [] }
 }
 
-function downloadPDF() {
-    return createPdf()
-        .then(res => console.log(res))
+function downloadPDF(bugs) {
+    return axios.post('/api/bug/pdf', bugs, { responseType: 'blob' })
+        .then(res => {
+            const url = window.URL.createObjectURL(res.data)
+            const a = document.createElement('a')
+            a.href = url
+            a.download = 'bugs.pdf'
+            a.click()
+        })
 }
 
 function getLabels() {
