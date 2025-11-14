@@ -13,12 +13,12 @@ export const bugService = {
     save,
     remove,
     getDefaultFilter,
-    downloadPDF
+    downloadPDF,
+    getLabels
 }
 
-function query(filterBy = {}) {
-    console.log(filterBy)
-    return axios.get(BASE_URL, { params: filterBy })
+function query(queryOptions = {}) {
+    return axios.get(BASE_URL, { params: queryOptions })
         .then(res => res.data)
 
 }
@@ -47,7 +47,7 @@ function save(bug) {
 
 
 function getDefaultFilter() {
-    return { txt: '', minSeverity: '', pageIdx: 0, paginationOn: true, pageSize: 3 }
+    return { txt: '', minSeverity: '', pageIdx: 0, paginationOn: true, pageSize: 3, labels: [] }
 }
 
 function downloadPDF() {
@@ -55,3 +55,8 @@ function downloadPDF() {
         .then(res => console.log(res))
 }
 
+function getLabels() {
+    return [
+        'back', 'front', 'critical', 'fixed', 'in progress', 'stuck'
+    ]
+}

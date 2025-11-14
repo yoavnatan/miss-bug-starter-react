@@ -12,36 +12,48 @@ export const bugService = {
 const PAGE_SIZE = 3
 const bugs = readJsonFile('./data/bug.json')
 
-function query(filterBy = {}) {
+function query({ filterBy, sortBy, pagination }) {
     let filteredBugs = bugs
 
     if (filterBy.txt) {
         const regExp = new RegExp(filterBy.txt, 'i')
         filteredBugs = filteredBugs.filter(bug => regExp.test(bug.title))
+        pagination.pageIdx = 0
     }
 
     if (filterBy.minSeverity) {
         filteredBugs = filteredBugs.filter(bug => bug.severity >= filterBy.minSeverity)
     }
 
-    if (filterBy.sortBy) {
-        if (filterBy.sortBy === 'title') {
-            filteredBugs.sort((a, b) => a.title.localeCompare(b.title) * filterBy.sortDir)
-        }
-        if (filterBy.sortBy === 'severity') {
-            filteredBugs.sort((a, b) => (b.severity - a.severity) * filterBy.sortDir)
-        }
-        if (filterBy.sortBy === 'createdAt') {
-            filteredBugs.sort((a, b) => (b.createdAt - a.createdAt) * filterBy.sortDir)
-        }
+    if (filterBy.labels && filterBy.labels.length > 0) {
+        filteredBugs = filteredBugs.filter(bug => {
+            return filterBy.labels.every(fLabel => {
+                return bug.labels.some(label => label === fLabel)
+            })
+        })
 
     }
 
-    if (filterBy.paginationOn) {
-        const startIdx = filterBy.pageIdx * PAGE_SIZE
-        const endIdx = startIdx + PAGE_SIZE
+    if (sortBy) {
+        // filterBy.pageIdx = 0
 
-        filteredBugs = filteredBugs.slice(startIdx, endIdx)
+        if (sortBy.sortField === 'severity' || sortBy.sortField === 'createdAt') {
+            const { sortField } = sortBy
+
+            filteredBugs.sort((bug1, bug2) =>
+                (bug1[sortField] - bug2[sortField]) * sortBy.sortDir)
+        } else if (sortBy.sortField === 'title') {
+            filteredBugs.sort((bug1, bug2) =>
+                (bug1.title.localeCompare(bug2.title)) * sortBy.sortDir)
+        }
+    }
+
+    if (pagination.paginationOn === 'true' && pagination.pageIdx !== undefined) {
+        console.log(pagination.paginationOn)
+        const { pageIdx, pageSize } = pagination
+
+        const startIdx = pageIdx * pageSize
+        filteredBugs = filteredBugs.slice(startIdx, startIdx + pageSize)
     }
 
     return Promise.resolve(filteredBugs)
@@ -70,8 +82,8 @@ function save(bug) {
     } else {
         bug._id = makeId()
         bug.createdAt = Date.now()
-        bug.labales = ['critical']
-        bugs.push(bug)
+        bug.labels = ['critical']
+        bugs.unshift(bug)
     }
     return _savebugs()
         .then(() => bug)
