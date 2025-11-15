@@ -1,95 +1,5 @@
 [
   {
-    "title": "dddd",
-    "description": "",
-    "severity": 3,
-    "labels": [
-      "critical"
-    ],
-    "_id": "Ei42o",
-    "createdAt": 1763118125248
-  },
-  {
-    "title": "Bug 1763117951177",
-    "description": "",
-    "severity": 3,
-    "labels": [
-      "critical"
-    ],
-    "_id": "M9IH8",
-    "createdAt": 1763117954971
-  },
-  {
-    "title": "Bug 1762977524187",
-    "description": "",
-    "severity": 7,
-    "labels": [
-      "critical"
-    ],
-    "_id": "Pa5tV",
-    "createdAt": 1763114546852
-  },
-  {
-    "title": "Bug 1762977524187",
-    "description": "",
-    "severity": 7,
-    "_id": "OB6HS",
-    "createdAt": 1762977692137,
-    "labels": [
-      "back",
-      "stuck",
-      "front"
-    ]
-  },
-  {
-    "title": "Bug 1762977524187",
-    "description": "",
-    "severity": 9,
-    "_id": "k2dLJ",
-    "createdAt": 1762977527753,
-    "labels": [
-      "front",
-      "stuck",
-      "fixed"
-    ]
-  },
-  {
-    "_id": "abc123",
-    "title": "Cannot save a new car",
-    "description": "problem when clicking Save",
-    "severity": 4,
-    "createdAt": 1542107359454,
-    "labels": [
-      "in progress",
-      "back",
-      "front"
-    ]
-  },
-  {
-    "title": "Bug 1762789685323",
-    "description": "",
-    "severity": 10,
-    "_id": "dJXK8",
-    "createdAt": 1762789688450,
-    "labels": [
-      "fixed",
-      "front",
-      "stuck"
-    ]
-  },
-  {
-    "title": "zzz",
-    "description": "mashuasms",
-    "severity": 1,
-    "_id": "NXzZG",
-    "createdAt": 1762795276253,
-    "labels": [
-      "back",
-      "in progress",
-      "fixed"
-    ]
-  },
-  {
     "title": "Bug 1762801788209",
     "description": "",
     "severity": 6,
@@ -170,6 +80,84 @@
     "labels": [
       "front",
       "back",
+      "fixed"
+    ]
+  },
+  {
+    "title": "Bug 1762977524187",
+    "description": "",
+    "severity": 7,
+    "labels": [
+      "critical"
+    ],
+    "_id": "Pa5tV",
+    "createdAt": 1763114546852
+  },
+  {
+    "title": "Bug 1762977524187",
+    "description": "",
+    "severity": 7,
+    "_id": "OB6HS",
+    "createdAt": 1762977692137,
+    "labels": [
+      "back",
+      "stuck",
+      "front"
+    ]
+  },
+  {
+    "title": "Bug 1762977524187",
+    "description": "",
+    "severity": 9,
+    "_id": "k2dLJ",
+    "createdAt": 1762977527753,
+    "labels": [
+      "front",
+      "stuck",
+      "fixed"
+    ]
+  },
+  {
+    "title": "Bug 1763117951177",
+    "description": "",
+    "severity": 3,
+    "labels": [
+      "critical"
+    ],
+    "_id": "M9IH8",
+    "createdAt": 1763117954971
+  },
+  {
+    "_id": "abc123",
+    "title": "Cannot save a new car",
+    "description": "problem when clicking Save",
+    "severity": 4,
+    "createdAt": 1542107359454,
+    "labels": [
+      "in progress",
+      "back",
+      "front"
+    ]
+  },
+  {
+    "title": "dddd",
+    "description": "",
+    "severity": 3,
+    "labels": [
+      "critical"
+    ],
+    "_id": "Ei42o",
+    "createdAt": 1763118125248
+  },
+  {
+    "title": "zzz",
+    "description": "mashuasms",
+    "severity": 1,
+    "_id": "NXzZG",
+    "createdAt": 1762795276253,
+    "labels": [
+      "back",
+      "in progress",
       "fixed"
     ]
   }
