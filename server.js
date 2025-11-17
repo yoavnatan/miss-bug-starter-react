@@ -1,6 +1,6 @@
+import path from 'path'
 import express from 'express'
 import cookieParser from 'cookie-parser'
-import path from 'path'
 import PDFDocument from 'pdfkit'
 
 
@@ -8,6 +8,8 @@ import PDFDocument from 'pdfkit'
 import { bugService } from './services/bug.service.js'
 import { loggerService } from './services/logger.service.js'
 import { pdfService } from './services/pdf.service.js'
+import { userService } from './services/user.service.js'
+import { authService } from './services/auth.service.js'
 
 
 
@@ -69,6 +71,9 @@ app.get('/api/bug/:id', (req, res) => {
 })
 
 app.post('/api/bug', (req, res) => {
+    const loggedinUser = authService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser) return res.status(401).send('Cannot add car')
+
     const bug = { // must be explicit
         title: req.body.title,
         description: req.body.description,
@@ -78,7 +83,7 @@ app.post('/api/bug', (req, res) => {
 
     if (!bug.title || bug.severity === undefined) return res.status(400).send('Missing required fields')
 
-    bugService.save(bug)
+    bugService.save(bug, loggedinUser)
         .then(bug => res.send(bug))
         .catch(err => {
             loggerService.error(err)
@@ -102,10 +107,13 @@ app.put('/api/bug/:id', (req, res) => {
 })
 
 app.delete('/api/bug/:id', (req, res) => {
+    const loggedinUser = authService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser) return res.status(401).send('Cannot delete car')
+
     const bugId = req.params.id
 
     bugService
-        .remove(bugId)
+        .remove(bugId, loggedinUser)
         .then(() => res.send('Bug Removed'))
         .catch(err => {
             loggerService.error(err)
@@ -113,15 +121,11 @@ app.delete('/api/bug/:id', (req, res) => {
         })
 })
 
-app.get('/*all', (req, res) => {
-    res.sendFile(path.resolve('public/index.html'))
-})
 
 app.post('/api/bug/pdf', (req, res) => {
     const bugs = req.body
     const doc = new PDFDocument()
 
-    // שליחה ישירות ללקוח
     res.setHeader('Content-Type', 'application/pdf')
 
     doc.pipe(res)
@@ -137,9 +141,51 @@ app.post('/api/bug/pdf', (req, res) => {
     doc.end()
 })
 
+//Auth API: 
+app.post('/api/auth/login', (req, res) => {
+    const { username, password } = req.body
+    authService.checkLogin({ username, password })
+        .then(user => {
+            const loginToken = authService.getLoginToken(user)
+            res.cookie('loginToken', loginToken)
+            res.send(user)
+        })
+        .catch(err => {
+            loggerService.error('cannot signup', err)
+            res.status(404).send('Invalid Credentials')
+        })
+})
+
+app.post('/api/auth/signup', (req, res) => {
+    const { username, password, fullname } = req.body
+    userService.add({ username, password, fullname })
+        .then(user => {
+            const loginToken = authService.getLoginToken(user)
+            res.cookie('loginToken', loginToken)
+            res.send(user)
+        })
+        .catch(err => {
+            loggerService.error('Cannot signup', err)
+            res.status(400).send('Cannot signup')
+        })
+})
 
 
-const port = 3030
+
+app.post('/api/auth/logout', (req, res) => {
+    res.clearCookie('loginToken')
+    res.send('logged-out!')
+})
+
+
+// Fallback route
+
+app.get('/*all', (req, res) => {
+    res.sendFile(path.resolve('public/index.html'))
+})
+
+
+const port = process.env.PORT || 3030
 app.listen(port, () => {
     loggerService.info(`Server listening on port http://127.0.0.1:${port}/`)
 })

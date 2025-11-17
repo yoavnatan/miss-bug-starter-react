@@ -65,24 +65,37 @@ function getById(bugId) {
     return Promise.resolve(bug)
 }
 
-function remove(bugId) {
+function remove(bugId, loggedinUser) {
     const idx = bugs.findIndex(bug => bug._id === bugId)
-
     if (idx === -1) return Promise.reject('bug not found')
-    bugs.splice(idx, 1)
 
+    if (bugs[idx].creator._id !== loggedinUser._id) {
+        return Promise.reject('Not your bug')
+    }
+
+    bugs.splice(idx, 1)
     return _savebugs()
 }
 
-function save(bug) {
+function save(bug, loggedinUser) {
     if (bug._id) {
-        const idx = bugs.findIndex(b => b._id === bug._id)
-        if (idx === -1) return Promise.reject('bug not found')
-        bugs[idx] = { ...bug[idx], ...bug } //patch --- because there is no createdAt at the saved bug that came from the front
+        const bugToUpdate = bugs.find(currBug => currBug._id === bug._id)
+        if (bugToUpdate.creator._id !== loggedinUser._id) {
+            return Promise.reject('Not your bug')
+        }
+        bugToUpdate.labels = bug.labels
+        bugToUpdate.createdAt = bug.createdAt
+        bugToUpdate.title = bug.title
+        bugToUpdate.severity = bug.severity
+
+        // const idx = bugs.findIndex(b => b._id === bug._id)
+        // if (idx === -1) return Promise.reject('bug not found')
+        // bugs[idx] = { ...bug[idx], ...bug } //patch --- because there is no createdAt at the saved bug that came from the front
     } else {
         bug._id = makeId()
         bug.createdAt = Date.now()
         bug.labels = ['critical']
+        bug.creator = loggedinUser
         bugs.unshift(bug)
     }
     return _savebugs()

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "start:mac": "export SECRET1=MY_SECRET&&node server.js",
     "dev": "nodemon --ignore \"./data\" server.js"
   },
   "author": "",
@@ -12,6 +13,7 @@
   "type": "module",
   "dependencies": {
     "cookie-parser": "^1.4.7",
+    "cryptr": "^6.4.0",
     "express": "^5.1.0",
     "follow-redirects": "^1.15.11",
     "pdfkit": "^0.17.2",

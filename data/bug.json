@@ -1,164 +1,66 @@
 [
   {
-    "title": "Bug 1762801788209",
-    "description": "",
-    "severity": 6,
-    "_id": "GwVg5",
-    "createdAt": 1762801791895,
+    "_id": "a91kf",
+    "title": "Cannot save a Car",
+    "description": "errors when clicking Save",
+    "severity": 4,
+    "createdAt": 1762993001123,
+    "labels": [
+      "front",
+      "fixed",
+      "stuck"
+    ],
+    "creator": {
+      "_id": "u201",
+      "fullname": "Dana Levi"
+    }
+  },
+  {
+    "_id": "t72md",
+    "title": "Cannot save a Car",
+    "description": "errors when clicking Save",
+    "severity": 10,
+    "createdAt": 1762993004450,
+    "labels": [
+      "in progress",
+      "back",
+      "fixed"
+    ],
+    "creator": {
+      "_id": "u202",
+      "fullname": "Lior Avni"
+    }
+  },
+  {
+    "_id": "j55qa",
+    "title": "Cannot save a Car",
+    "description": "errors when clicking Save",
+    "severity": 2,
+    "createdAt": 1762993007788,
     "labels": [
       "stuck",
       "front",
       "back"
-    ]
+    ],
+    "creator": {
+      "_id": "u203",
+      "fullname": "Noa Bar"
+    }
   },
   {
-    "title": "Bug 1762880594854",
-    "description": "",
-    "severity": 3,
-    "_id": "0eiXS",
-    "createdAt": 1762880598572,
+    "_id": "p19zn",
+    "title": "Cannot save a Car",
+    "description": "errors when clicking Save",
+    "severity": 7,
+    "createdAt": 1762993011123,
     "labels": [
       "fixed",
       "in progress",
       "front"
-    ]
-  },
-  {
-    "title": "Bug 1762883253184",
-    "description": "",
-    "severity": 8,
-    "_id": "ETbWD",
-    "createdAt": 1762883255788,
-    "labels": [
-      "stuck",
-      "back",
-      "in progress"
-    ]
-  },
-  {
-    "title": "Bug 1762887810175",
-    "description": "",
-    "severity": 5,
-    "_id": "2m8QO",
-    "createdAt": 1762887812976,
-    "labels": [
-      "front",
-      "stuck",
-      "fixed"
-    ]
-  },
-  {
-    "title": "Bug 1762888270804",
-    "description": "",
-    "severity": 7,
-    "_id": "Khp7Z",
-    "createdAt": 1762888274293,
-    "labels": [
-      "in progress",
-      "back",
-      "front"
-    ]
-  },
-  {
-    "title": "Bug 1762888310657",
-    "description": "",
-    "severity": 2,
-    "_id": "y911X",
-    "createdAt": 1762888314309,
-    "labels": [
-      "fixed",
-      "in progress",
-      "stuck"
-    ]
-  },
-  {
-    "title": "Bug 1762888402606",
-    "description": "",
-    "severity": 9,
-    "_id": "l3rZZ",
-    "createdAt": 1762888405792,
-    "labels": [
-      "front",
-      "back",
-      "fixed"
-    ]
-  },
-  {
-    "title": "Bug 1762977524187",
-    "description": "",
-    "severity": 7,
-    "labels": [
-      "critical"
     ],
-    "_id": "Pa5tV",
-    "createdAt": 1763114546852
-  },
-  {
-    "title": "Bug 1762977524187",
-    "description": "",
-    "severity": 7,
-    "_id": "OB6HS",
-    "createdAt": 1762977692137,
-    "labels": [
-      "back",
-      "stuck",
-      "front"
-    ]
-  },
-  {
-    "title": "Bug 1762977524187",
-    "description": "",
-    "severity": 9,
-    "_id": "k2dLJ",
-    "createdAt": 1762977527753,
-    "labels": [
-      "front",
-      "stuck",
-      "fixed"
-    ]
-  },
-  {
-    "title": "Bug 1763117951177",
-    "description": "",
-    "severity": 3,
-    "labels": [
-      "critical"
-    ],
-    "_id": "M9IH8",
-    "createdAt": 1763117954971
-  },
-  {
-    "_id": "abc123",
-    "title": "Cannot save a new car",
-    "description": "problem when clicking Save",
-    "severity": 4,
-    "createdAt": 1542107359454,
-    "labels": [
-      "in progress",
-      "back",
-      "front"
-    ]
-  },
-  {
-    "title": "dddd",
-    "description": "",
-    "severity": 3,
-    "labels": [
-      "critical"
-    ],
-    "_id": "Ei42o",
-    "createdAt": 1763118125248
-  },
-  {
-    "title": "zzz",
-    "description": "mashuasms",
-    "severity": 1,
-    "_id": "NXzZG",
-    "createdAt": 1762795276253,
-    "labels": [
-      "back",
-      "in progress",
-      "fixed"
-    ]
+    "creator": {
+      "_id": "u204",
+      "fullname": "Rami Cohen"
+    }
   }
 ]
