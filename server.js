@@ -95,12 +95,14 @@ app.post('/api/bug', (req, res) => {
 })
 
 app.put('/api/bug/:id', (req, res) => {
-    const { _id, title, description, severity } = req.body //no createdAt here, came from the front
+    const loggedinUser = authService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser) return res.status(401).send('Cannot edit bug')
+    const { _id, title, description, severity, labels } = req.body //no createdAt here, came from the front
 
     if (!_id || !title || severity === undefined) return res.status(400).send('Missing required fields')
     const bug = { _id, title, description, severity: +severity, labels: labels || [] }
-
-    bugService.save(bug)
+    console.log('hi')
+    bugService.save(bug, loggedinUser)
         .then(savedBug => res.send(savedBug))
         .catch(err => {
             loggerService.error(err)
@@ -215,6 +217,21 @@ app.get('/api/user/bugs/:userId', (req, res) => {
 
 })
 
+app.delete('/api/user/:userId', (req, res) => {
+    console.log('deleting user')
+    const loggedinUser = authService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser) return res.status(401).send('Cannot delete bug')
+
+    const { userId } = req.params
+
+    userService
+        .remove(userId, loggedinUser)
+        .then(() => res.send('user Removed'))
+        .catch(err => {
+            loggerService.error(err)
+            res.status(404).send(err)
+        })
+})
 
 // Fallback route
 

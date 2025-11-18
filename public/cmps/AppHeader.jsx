@@ -15,12 +15,13 @@ export function AppHeader({ loggedinUser, setLoggedinUser }) {
             })
     }
 
-
+    console.log(loggedinUser)
     return <header className="app-header main-content single-row">
         <h1>Miss Bug</h1>
         <nav>
             <NavLink to="/">Home</NavLink>
             <NavLink to="/bug">Bugs</NavLink>
+            {loggedinUser.isAdmin && <NavLink to="/users">Users</NavLink>}
             <NavLink to="/about">About</NavLink>
             {
                 !loggedinUser

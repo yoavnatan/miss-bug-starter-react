@@ -1,13 +1,41 @@
 [
   {
-    "title": "mybug",
-    "description": "this is my bug",
-    "severity": 20,
+    "title": "My new bug",
+    "description": "is Very amazing",
+    "severity": 5,
     "labels": [
       "critical"
     ],
-    "_id": "qy54N",
-    "createdAt": 1763485006071,
+    "_id": "X8GTz",
+    "createdAt": 1763491701972,
+    "creator": {
+      "_id": "acVVb",
+      "fullname": "sddssdss"
+    }
+  },
+  {
+    "title": "My new bug",
+    "description": "is Very amazing",
+    "severity": 10,
+    "labels": [
+      "critical"
+    ],
+    "_id": "4ytUm",
+    "createdAt": 1763491649423,
+    "creator": {
+      "_id": "acVVb",
+      "fullname": "sddssdss"
+    }
+  },
+  {
+    "title": "My new bug",
+    "description": "is amazing",
+    "severity": 80,
+    "labels": [
+      "critical"
+    ],
+    "_id": "lT9RR",
+    "createdAt": 1763491636764,
     "creator": {
       "_id": "acVVb",
       "fullname": "sddssdss"

@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { readJsonFile, makeId } from './util.service.js'
 
-const users = readJsonFile('data/user.json')
+let users = readJsonFile('data/user.json')
 
 export const userService = {
     query,
@@ -16,7 +16,6 @@ function query() {
         _id: user._id,
         fullname: user.fullname,
         username: user.username,
-        score: user.score,
     }))
     return Promise.resolve(usersToReturn)
 }
@@ -37,9 +36,12 @@ function getByUsername(username) {
     return Promise.resolve(user)
 }
 
-function remove(userId) {
+function remove(userId, loggedinUser) {
+    if (!loggedinUser.isAdmin) return Promise.reject('Not possible')
     users = users.filter(user => user._id !== userId)
     return _saveUsersToFile()
+
+
 }
 
 function add(user) {
@@ -58,6 +60,7 @@ function add(user) {
                     delete user.password
                     return user
                 })
+                .catch(err => console.log(err))
         })
 }
 

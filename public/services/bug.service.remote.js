@@ -38,8 +38,8 @@ function remove(bugId) {
 
 function save(bug) {
 
-    if (bug.id) {
-        return axios.put(BASE_URL + `/${bug.id}`, bug)
+    if (bug._id) {
+        return axios.put(BASE_URL + `/${bug._id}`, bug)
             .then(res => res.data)
     } else {
         return axios.post(BASE_URL, bug)
