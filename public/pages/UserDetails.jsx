@@ -30,6 +30,7 @@ export function UserDetails() {
     }
 
     function onRemoveBug(bugId) {
+
         bugService.remove(bugId)
             .then(() => {
                 const bugsToUpdate = userBugs.filter(bug => bug._id !== bugId)
