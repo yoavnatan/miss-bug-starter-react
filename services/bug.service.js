@@ -7,7 +7,8 @@ export const bugService = {
     query,
     getById,
     remove,
-    save
+    save,
+    getUserBugs
 }
 const PAGE_SIZE = 3
 const bugs = readJsonFile('./data/bug.json')
@@ -100,6 +101,12 @@ function save(bug, loggedinUser) {
     }
     return _savebugs()
         .then(() => bug)
+}
+
+function getUserBugs(userId) {
+    const userBugs = bugs.filter(bug => bug.creator._id === userId)
+    return Promise.resolve(userBugs)
+
 }
 
 function _savebugs() {

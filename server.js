@@ -70,9 +70,11 @@ app.get('/api/bug/:id', (req, res) => {
         })
 })
 
+
+
 app.post('/api/bug', (req, res) => {
     const loggedinUser = authService.validateToken(req.cookies.loginToken)
-    if (!loggedinUser) return res.status(401).send('Cannot add car')
+    if (!loggedinUser) return res.status(401).send('Cannot add bug')
 
     const bug = { // must be explicit
         title: req.body.title,
@@ -175,6 +177,42 @@ app.post('/api/auth/signup', (req, res) => {
 app.post('/api/auth/logout', (req, res) => {
     res.clearCookie('loginToken')
     res.send('logged-out!')
+})
+
+// User API
+
+
+app.get('/api/user', (req, res) => {
+    userService.query()
+        .then(users => res.send(users))
+        .catch(err => {
+            loggerService.error('Cannot load users', err)
+            res.status(400).send('Cannot load users')
+        })
+})
+
+app.get('/api/user/:userId', (req, res) => {
+    const { userId } = req.params
+
+    userService.getById(userId)
+        .then(user => res.send(user))
+        .catch(err => {
+            loggerService.error('Cannot load user', err)
+            res.status(400).send('Cannot load user')
+        })
+})
+
+app.get('/api/user/bugs/:userId', (req, res) => {
+    const loggedinUser = authService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser) return res.status(401).send('Cannot add bug')
+    const { userId } = req.params
+    bugService.getUserBugs(userId)
+        .then(bugs => res.send(bugs))
+        .catch(err => {
+            loggerService.error(err)
+            res.status(404).send(err)
+        })
+
 })
 
 

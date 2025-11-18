@@ -15,7 +15,8 @@ export const bugService = {
     remove,
     getDefaultFilter,
     downloadPDF,
-    getLabels
+    getLabels,
+    getUserBugs
 }
 
 function query(queryOptions = {}) {
@@ -44,6 +45,11 @@ function save(bug) {
         return axios.post(BASE_URL, bug)
             .then(res => res.data)
     }
+}
+
+function getUserBugs(userId) {
+    return axios.get('/api/user/bugs/' + userId)
+        .then(res => res.data)
 }
 
 

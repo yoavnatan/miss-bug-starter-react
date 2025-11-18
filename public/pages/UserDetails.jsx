@@ -2,15 +2,20 @@ const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouterDOM
 
 import { userService } from "../services/user.service.js"
+import { bugService } from "../services/bug.service.remote.js"
+import { BugList } from '../cmps/BugList.jsx'
 
-export function UserDetails() {
+export function UserDetails({ loggedinUser }) {
 
     const [user, setUser] = useState(null)
+    const [userBugs, setUserBugs] = useState([])
     const params = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
         loadUser()
+        bugService.getUserBugs(loggedinUser._id)
+            .then(setUserBugs)
     }, [params.userId])
 
     function loadUser() {
@@ -26,7 +31,8 @@ export function UserDetails() {
         navigate('/')
     }
 
-    if (!user) return <div>Loading...</div>
+
+    if (!user || !userBugs) return <div>Loading...</div>
 
     return (
         <section className="user-details">
@@ -34,7 +40,8 @@ export function UserDetails() {
             <pre>
                 {JSON.stringify(user, null, 2)}
             </pre>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim rem accusantium, itaque ut voluptates quo? Vitae animi maiores nisi, assumenda molestias odit provident quaerat accusamus, reprehenderit impedit, possimus est ad?</p>
+            <h2>bugs:</h2>
+            <BugList bugs={userBugs} />
             <button onClick={onBack} >Back</button>
         </section>
     )
